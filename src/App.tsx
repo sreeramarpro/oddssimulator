@@ -30,7 +30,6 @@ const calculateOutcomePL = (odds: string | number, stake: string | number, isWin
 
 // --- Components ---
 
-// The new, simplified warning component
 const NeonWarning = () => {
   return (
     <div className="flex justify-center py-16 w-full select-none">
@@ -52,9 +51,9 @@ const OutcomeRow = ({ outcome, onUpdate, onDelete }: OutcomeRowProps) => {
 
   const profitColor =
     profit > 0
-      ? "text-green-700 font-bold" // Darker green for better contrast on yellow
+      ? "text-green-700 font-bold" 
       : profit < 0
-      ? "text-red-700 font-bold" // Darker red for better contrast
+      ? "text-red-700 font-bold" 
       : "text-gray-600";
   const bgState = outcome.isWin
     ? "bg-green-100 border-green-600"
@@ -310,8 +309,8 @@ export default function App() {
   }, [events]);
 
   return (
-    // Updated background color to neon yellow
-    <div className="min-h-screen bg-yellow-400 p-8 font-sans text-gray-900">
+    // Updated background to exact custom hex #E1FF00
+    <div className="min-h-screen bg-[#E1FF00] p-8 font-sans text-gray-900">
       <div className="max-w-5xl mx-auto">
         <header className="mb-8 text-center">
           <h1 className="text-4xl md:text-5xl font-black text-black mb-4 drop-shadow-sm">
@@ -322,13 +321,14 @@ export default function App() {
           </p>
         </header>
 
-        <div className="bg-black text-yellow-400 p-6 rounded-xl shadow-2xl mb-10 flex flex-col md:flex-row justify-between items-center sticky top-4 z-10 border-4 border-black">
+        {/* Updated text colors inside the black dashboard to match the new background */}
+        <div className="bg-black text-[#E1FF00] p-6 rounded-xl shadow-2xl mb-10 flex flex-col md:flex-row justify-between items-center sticky top-4 z-10 border-4 border-black">
           <div className="mb-4 md:mb-0 text-center md:text-left">
-            <span className="text-yellow-200 text-xs uppercase tracking-widest font-bold">Total Exposure</span>
+            <span className="text-[#E1FF00]/80 text-xs uppercase tracking-widest font-bold">Total Exposure</span>
             <div className="text-3xl font-mono font-black">{globalStats.grandTotalStake.toFixed(2)}</div>
           </div>
           <div className="text-center md:text-right">
-            <span className="text-yellow-200 text-xs uppercase tracking-widest font-bold">Grand Total Profit/Loss</span>
+            <span className="text-[#E1FF00]/80 text-xs uppercase tracking-widest font-bold">Grand Total Profit/Loss</span>
             <div className={`text-4xl font-mono font-black ${globalStats.grandTotalPL >= 0 ? "text-green-400" : "text-red-500"}`}>
               {globalStats.grandTotalPL >= 0 ? "+" : ""}
               {globalStats.grandTotalPL.toFixed(2)}
@@ -342,14 +342,14 @@ export default function App() {
           ))}
         </div>
 
+        {/* Updated hover state to match the custom background */}
         <button
           onClick={addEvent}
-          className="w-full py-5 bg-white border-4 border-dashed border-black rounded-xl text-xl font-black text-black hover:bg-black hover:text-yellow-400 transition-all duration-300 flex items-center justify-center gap-3 shadow-md active:scale-[0.99]"
+          className="w-full py-5 bg-white border-4 border-dashed border-black rounded-xl text-xl font-black text-black hover:bg-black hover:text-[#E1FF00] transition-all duration-300 flex items-center justify-center gap-3 shadow-md active:scale-[0.99]"
         >
           <Plus size={24} strokeWidth={3} /> ADD NEW EVENT
         </button>
 
-        {/* The new bold, black, italic warning text */}
         <NeonWarning />
         
       </div>
