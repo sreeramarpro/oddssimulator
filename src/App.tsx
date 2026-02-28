@@ -299,29 +299,26 @@ export default function App() {
   }, [events]);
 
   return (
-    <div className="min-h-screen bg-[#E1FF00] p-4 md:p-8 font-sans text-gray-900 overflow-x-hidden">
-      <div className="max-w-6xl mx-auto">
-        
-        {/* The New Edge-to-Edge Unified Header */}
-        <header className="mb-8 w-full select-none">
-          <div className="flex justify-between items-center w-full font-['Anton'] font-normal whitespace-nowrap text-[4.5vw] md:text-[2.8vw] lg:text-[2.2rem] leading-none tracking-tight text-black uppercase pb-4 border-b-4 border-black mb-4 drop-shadow-sm">
-            <span>Outcome Variance Simulator</span>
-            <span className="mx-2 md:mx-4 opacity-40">-</span>
-            <span>Do Not Gamble</span>
-          </div>
-          <p className="text-gray-900 text-sm md:text-base max-w-3xl mx-auto font-medium leading-relaxed text-center">
-            A deterministic tool for analyzing probability, risk distribution, and "what-if" scenarios. Define outcomes, set toggles, and view instant P/L calculations. <span className="font-bold">This is a calculator, not a predictor.</span>
-          </p>
-        </header>
+    <div className="min-h-screen bg-[#D2FF00] font-sans text-gray-900 flex flex-col items-center overflow-x-hidden">
+      
+      <header className="w-full select-none flex justify-center border-b-[10px] md:border-b-[16px] border-black pt-8 md:pt-12 mb-8 md:mb-12 px-4 md:px-8 bg-[#D2FF00]">
+        <div className="flex justify-center items-end w-full max-w-[1400px] gap-3 md:gap-6 font-['Anton'] font-normal whitespace-nowrap text-[4.5vw] md:text-[4vw] xl:text-[64px] tracking-tighter text-black uppercase pb-1 md:pb-2">
+          <span className="transform scale-y-[1.3] origin-bottom">Outcome Variance Simulator</span>
+          <span className="transform scale-y-[1.3] origin-bottom opacity-80">-</span>
+          <span className="transform scale-y-[1.3] origin-bottom">Do Not Gamble</span>
+        </div>
+      </header>
 
-        <div className="bg-black text-[#E1FF00] p-6 rounded-xl shadow-2xl mb-10 flex flex-col md:flex-row justify-between items-center sticky top-4 z-10 border-4 border-black">
+      {/* Main Content Area */}
+      <main className="w-full max-w-[1400px] px-4 md:px-8 pb-16">
+        <div className="bg-black text-[#D2FF00] p-6 md:p-8 rounded-xl shadow-2xl mb-10 flex flex-col md:flex-row justify-between items-center sticky top-4 z-10 border-4 border-black">
           <div className="mb-4 md:mb-0 text-center md:text-left">
-            <span className="text-[#E1FF00]/80 text-xs uppercase tracking-widest font-bold">Total Exposure</span>
-            <div className="text-3xl font-mono font-black">{globalStats.grandTotalStake.toFixed(2)}</div>
+            <span className="text-[#D2FF00]/80 text-sm uppercase tracking-widest font-bold">Total Exposure</span>
+            <div className="text-4xl md:text-5xl font-mono font-black">{globalStats.grandTotalStake.toFixed(2)}</div>
           </div>
           <div className="text-center md:text-right">
-            <span className="text-[#E1FF00]/80 text-xs uppercase tracking-widest font-bold">Grand Total Profit/Loss</span>
-            <div className={`text-4xl font-mono font-black ${globalStats.grandTotalPL >= 0 ? "text-green-400" : "text-red-500"}`}>
+            <span className="text-[#D2FF00]/80 text-sm uppercase tracking-widest font-bold">Grand Total Profit/Loss</span>
+            <div className={`text-5xl md:text-6xl font-mono font-black ${globalStats.grandTotalPL >= 0 ? "text-green-400" : "text-red-500"}`}>
               {globalStats.grandTotalPL >= 0 ? "+" : ""}
               {globalStats.grandTotalPL.toFixed(2)}
             </div>
@@ -336,12 +333,12 @@ export default function App() {
 
         <button
           onClick={addEvent}
-          className="w-full py-5 bg-white border-4 border-dashed border-black rounded-xl text-xl font-black text-black hover:bg-black hover:text-[#E1FF00] transition-all duration-300 flex items-center justify-center gap-3 shadow-md active:scale-[0.99]"
+          className="w-full py-6 md:py-8 bg-white border-4 border-dashed border-black rounded-xl text-2xl font-black text-black hover:bg-black hover:text-[#D2FF00] transition-all duration-300 flex items-center justify-center gap-3 shadow-md active:scale-[0.99]"
         >
-          <Plus size={24} strokeWidth={3} /> ADD NEW EVENT
+          <Plus size={32} strokeWidth={3} /> ADD NEW EVENT
         </button>
-        
-      </div>
+      </main>
+      
     </div>
   );
 }
