@@ -30,6 +30,17 @@ const calculateOutcomePL = (odds: string | number, stake: string | number, isWin
 
 // --- Components ---
 
+// The new, simplified warning component
+const NeonWarning = () => {
+  return (
+    <div className="flex justify-center py-16 w-full select-none">
+      <h2 className="text-5xl md:text-7xl font-black italic tracking-wider text-center uppercase text-black drop-shadow-sm">
+        Do Not Gamble
+      </h2>
+    </div>
+  );
+};
+
 interface OutcomeRowProps {
   outcome: OutcomeData;
   onUpdate: (updated: OutcomeData) => void;
@@ -41,21 +52,21 @@ const OutcomeRow = ({ outcome, onUpdate, onDelete }: OutcomeRowProps) => {
 
   const profitColor =
     profit > 0
-      ? "text-green-600 font-bold"
+      ? "text-green-700 font-bold" // Darker green for better contrast on yellow
       : profit < 0
-      ? "text-red-600 font-bold"
-      : "text-gray-400";
+      ? "text-red-700 font-bold" // Darker red for better contrast
+      : "text-gray-600";
   const bgState = outcome.isWin
-    ? "bg-green-100 border-green-500"
-    : "bg-red-50 border-red-200";
+    ? "bg-green-100 border-green-600"
+    : "bg-red-100 border-red-600";
 
   return (
-    <div className={`grid grid-cols-12 gap-2 items-center p-2 mb-2 rounded border-l-4 ${bgState} transition-all duration-200`}>
+    <div className={`grid grid-cols-12 gap-2 items-center p-2 mb-2 rounded border-l-4 ${bgState} transition-all duration-200 shadow-sm`}>
       <div className="col-span-3">
         <input
           type="text"
           placeholder="Outcome Name"
-          className="w-full p-1 text-sm border rounded bg-white/50"
+          className="w-full p-1 text-sm border-gray-300 rounded bg-white focus:ring-2 focus:ring-black focus:border-transparent"
           value={outcome.name}
           onChange={(e) => onUpdate({ ...outcome, name: e.target.value })}
         />
@@ -64,7 +75,7 @@ const OutcomeRow = ({ outcome, onUpdate, onDelete }: OutcomeRowProps) => {
         <input
           type="number"
           placeholder="Odds"
-          className="w-full p-1 text-sm border rounded text-center"
+          className="w-full p-1 text-sm border-gray-300 rounded text-center focus:ring-2 focus:ring-black focus:border-transparent"
           value={outcome.odds}
           onChange={(e) => onUpdate({ ...outcome, odds: e.target.value })}
         />
@@ -73,7 +84,7 @@ const OutcomeRow = ({ outcome, onUpdate, onDelete }: OutcomeRowProps) => {
         <input
           type="number"
           placeholder="Stake"
-          className="w-full p-1 text-sm border rounded text-center"
+          className="w-full p-1 text-sm border-gray-300 rounded text-center focus:ring-2 focus:ring-black focus:border-transparent"
           value={outcome.stake}
           onChange={(e) => onUpdate({ ...outcome, stake: e.target.value })}
         />
@@ -81,8 +92,8 @@ const OutcomeRow = ({ outcome, onUpdate, onDelete }: OutcomeRowProps) => {
       <div className="col-span-2 flex justify-center">
         <button
           onClick={() => onUpdate({ ...outcome, isWin: !outcome.isWin })}
-          className={`px-3 py-1 text-xs font-bold rounded-full shadow-sm w-20 transition-colors ${
-            outcome.isWin ? "bg-green-500 text-white hover:bg-green-600" : "bg-red-400 text-white hover:bg-red-500"
+          className={`px-3 py-1 text-xs font-bold rounded-full shadow-md w-20 transition-transform active:scale-95 ${
+            outcome.isWin ? "bg-green-600 text-white hover:bg-green-700" : "bg-red-600 text-white hover:bg-red-700"
           }`}
         >
           {outcome.isWin ? "WIN" : "LOSE"}
@@ -93,8 +104,8 @@ const OutcomeRow = ({ outcome, onUpdate, onDelete }: OutcomeRowProps) => {
         {profit.toFixed(2)}
       </div>
       <div className="col-span-1 flex justify-end">
-        <button onClick={onDelete} className="text-gray-400 hover:text-red-500">
-          <Trash2 size={16} />
+        <button onClick={onDelete} className="text-gray-500 hover:text-red-700 transition-colors">
+          <Trash2 size={18} />
         </button>
       </div>
     </div>
@@ -162,31 +173,31 @@ const EventCard = ({ event, onUpdateEvent, onDeleteEvent }: EventCardProps) => {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-md mb-6 border border-gray-200 overflow-hidden">
-      <div className="bg-gray-50 p-4 border-b flex justify-between items-center">
+    <div className="bg-white rounded-xl shadow-lg mb-6 border-2 border-black overflow-hidden">
+      <div className="bg-gray-100 p-4 border-b-2 border-black flex justify-between items-center">
         <input
-          className="font-bold text-lg bg-transparent border-none focus:ring-0 text-gray-800"
+          className="font-bold text-lg bg-transparent border-none focus:ring-0 text-gray-900 placeholder-gray-500"
           value={event.name}
           onChange={(e) => onUpdateEvent({ ...event, name: e.target.value })}
           placeholder="Event Name (e.g., Match 1)"
         />
         <div className="flex gap-2">
-          <button onClick={() => setAllResults(true)} className="text-xs px-2 py-1 bg-green-100 text-green-700 rounded hover:bg-green-200">
+          <button onClick={() => setAllResults(true)} className="text-xs px-3 py-1.5 bg-green-200 text-green-800 font-semibold rounded hover:bg-green-300 transition-colors border border-green-700">
             All Win
           </button>
-          <button onClick={() => setAllResults(false)} className="text-xs px-2 py-1 bg-red-100 text-red-700 rounded hover:bg-red-200">
+          <button onClick={() => setAllResults(false)} className="text-xs px-3 py-1.5 bg-red-200 text-red-800 font-semibold rounded hover:bg-red-300 transition-colors border border-red-700">
             All Lose
           </button>
-          <button onClick={setRandomResults} className="text-xs px-2 py-1 bg-blue-100 text-blue-700 rounded hover:bg-blue-200 flex items-center gap-1">
-            <RefreshCcw size={10} /> Random
+          <button onClick={setRandomResults} className="text-xs px-3 py-1.5 bg-blue-200 text-blue-800 font-semibold rounded hover:bg-blue-300 transition-colors border border-blue-700 flex items-center gap-1">
+            <RefreshCcw size={12} /> Random
           </button>
-          <button onClick={onDeleteEvent} className="text-gray-400 hover:text-red-500 ml-2">
-            <Trash2 size={18} />
+          <button onClick={onDeleteEvent} className="text-gray-500 hover:text-red-700 ml-2 transition-colors">
+            <Trash2 size={20} />
           </button>
         </div>
       </div>
 
-      <div className="grid grid-cols-12 gap-2 px-4 py-2 text-xs font-semibold text-gray-500 uppercase">
+      <div className="grid grid-cols-12 gap-2 px-4 py-3 text-xs font-bold text-gray-700 uppercase bg-gray-50 border-b border-gray-200">
         <div className="col-span-3">Outcome</div>
         <div className="col-span-2 text-center">Decimal Odds</div>
         <div className="col-span-2 text-center">Stake</div>
@@ -195,7 +206,7 @@ const EventCard = ({ event, onUpdateEvent, onDeleteEvent }: EventCardProps) => {
         <div className="col-span-1"></div>
       </div>
 
-      <div className="p-2">
+      <div className="p-3 bg-gray-50">
         {event.outcomes.map((outcome) => (
           <OutcomeRow
             key={outcome.id}
@@ -206,58 +217,40 @@ const EventCard = ({ event, onUpdateEvent, onDeleteEvent }: EventCardProps) => {
         ))}
         <button
           onClick={addOutcome}
-          className="w-full py-2 flex items-center justify-center text-sm text-gray-500 hover:bg-gray-50 border border-dashed rounded mt-2"
+          className="w-full py-2.5 flex items-center justify-center text-sm font-semibold text-gray-600 hover:text-black hover:bg-gray-200 border-2 border-dashed border-gray-400 hover:border-black rounded-lg mt-3 transition-all"
         >
-          <Plus size={16} className="mr-1" /> Add Outcome
+          <Plus size={18} className="mr-1" /> Add Outcome
         </button>
       </div>
 
-      <div className="bg-gray-50 p-4 border-t grid grid-cols-2 gap-4">
-        <div className="text-xs text-gray-500">
-          <div className="flex items-center gap-1 mb-1 font-semibold">
-            <Info size={12} /> Market Structure
+      <div className="bg-gray-100 p-4 border-t-2 border-black grid grid-cols-2 gap-4">
+        <div className="text-xs text-gray-700">
+          <div className="flex items-center gap-1 mb-2 font-bold text-sm">
+            <Info size={14} /> Market Structure
           </div>
-          <div>
-            Implied Probability Sum: <span className="font-mono">{(eventStats.impliedProbSum * 100).toFixed(1)}%</span>
+          <div className="mb-1">
+            Implied Probability Sum: <span className="font-mono font-bold text-sm">{(eventStats.impliedProbSum * 100).toFixed(1)}%</span>
           </div>
           {eventStats.impliedProbSum < 1 && eventStats.impliedProbSum > 0 && (
-            <div className="text-green-600 font-bold">Arbitrage Opportunity Detected</div>
+            <div className="text-green-700 font-black">Arbitrage Opportunity Detected</div>
           )}
           {eventStats.impliedProbSum > 1 && (
-            <div>Market Margin (Vig): {((eventStats.impliedProbSum - 1) * 100).toFixed(1)}%</div>
+            <div>Market Margin (Vig): <span className="font-bold">{((eventStats.impliedProbSum - 1) * 100).toFixed(1)}%</span></div>
           )}
         </div>
         <div className="text-right">
-          <div className="text-sm text-gray-600">
-            Event Stake: <span className="font-mono">{eventStats.totalStake.toFixed(2)}</span>
+          <div className="text-sm text-gray-700 mb-1">
+            Event Stake: <span className="font-mono font-bold">{eventStats.totalStake.toFixed(2)}</span>
           </div>
-          <div className="text-lg font-bold flex justify-end items-center gap-2">
+          <div className="text-xl font-black flex justify-end items-center gap-2">
             Event P/L:
-            <span className={`font-mono ${eventStats.currentPL >= 0 ? "text-green-600" : "text-red-600"}`}>
+            <span className={`font-mono ${eventStats.currentPL >= 0 ? "text-green-700" : "text-red-700"}`}>
               {eventStats.currentPL >= 0 ? "+" : ""}
               {eventStats.currentPL.toFixed(2)}
             </span>
           </div>
         </div>
       </div>
-    </div>
-  );
-};
-
-const NeonWarning = () => {
-  return (
-    <div className="flex justify-center py-16 relative w-full overflow-hidden select-none">
-      <h2 className="relative text-5xl md:text-7xl font-black tracking-[0.3em] text-center uppercase group">
-        {/* The blurry, pulsing glow behind the text */}
-        <span className="absolute inset-0 bg-gradient-to-r from-red-600 via-pink-600 to-red-600 bg-clip-text text-transparent blur-xl animate-pulse opacity-80">
-          Do Not Gamble
-        </span>
-        
-        {/* The sharp, white-hot foreground text */}
-        <span className="relative bg-gradient-to-r from-red-500 via-white to-red-500 bg-clip-text text-transparent drop-shadow-sm">
-          Do Not Gamble
-        </span>
-      </h2>
     </div>
   );
 };
@@ -317,23 +310,26 @@ export default function App() {
   }, [events]);
 
   return (
-    <div className="min-h-screen bg-gray-100 p-8 font-sans text-gray-800">
-      <div className="max-w-4xl mx-auto">
-        <header className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Outcome Variance Simulator</h1>
-          <p className="text-gray-600 text-sm max-w-2xl">
-            A deterministic tool for analyzing probability, risk distribution, and "what-if" scenarios. Define outcomes, set toggles, and view instant P/L calculations. This is a calculator, not a predictor.
+    // Updated background color to neon yellow
+    <div className="min-h-screen bg-yellow-400 p-8 font-sans text-gray-900">
+      <div className="max-w-5xl mx-auto">
+        <header className="mb-8 text-center">
+          <h1 className="text-4xl md:text-5xl font-black text-black mb-4 drop-shadow-sm">
+            Outcome Variance Simulator
+          </h1>
+          <p className="text-gray-800 text-md max-w-2xl mx-auto font-medium leading-relaxed">
+            A deterministic tool for analyzing probability, risk distribution, and "what-if" scenarios. Define outcomes, set toggles, and view instant P/L calculations. <span className="font-bold">This is a calculator, not a predictor.</span>
           </p>
         </header>
 
-        <div className="bg-slate-800 text-white p-4 rounded-lg shadow-lg mb-8 flex justify-between items-center sticky top-4 z-10">
-          <div>
-            <span className="text-slate-400 text-xs uppercase tracking-wider">Total Exposure</span>
-            <div className="text-2xl font-mono font-bold">{globalStats.grandTotalStake.toFixed(2)}</div>
+        <div className="bg-black text-yellow-400 p-6 rounded-xl shadow-2xl mb-10 flex flex-col md:flex-row justify-between items-center sticky top-4 z-10 border-4 border-black">
+          <div className="mb-4 md:mb-0 text-center md:text-left">
+            <span className="text-yellow-200 text-xs uppercase tracking-widest font-bold">Total Exposure</span>
+            <div className="text-3xl font-mono font-black">{globalStats.grandTotalStake.toFixed(2)}</div>
           </div>
-          <div className="text-right">
-            <span className="text-slate-400 text-xs uppercase tracking-wider">Grand Total Profit/Loss</span>
-            <div className={`text-3xl font-mono font-bold ${globalStats.grandTotalPL >= 0 ? "text-green-400" : "text-red-400"}`}>
+          <div className="text-center md:text-right">
+            <span className="text-yellow-200 text-xs uppercase tracking-widest font-bold">Grand Total Profit/Loss</span>
+            <div className={`text-4xl font-mono font-black ${globalStats.grandTotalPL >= 0 ? "text-green-400" : "text-red-500"}`}>
               {globalStats.grandTotalPL >= 0 ? "+" : ""}
               {globalStats.grandTotalPL.toFixed(2)}
             </div>
@@ -348,11 +344,14 @@ export default function App() {
 
         <button
           onClick={addEvent}
-          className="w-full py-4 bg-white border-2 border-dashed border-gray-300 rounded-lg text-gray-500 font-semibold hover:border-blue-500 hover:text-blue-500 transition-colors flex items-center justify-center gap-2"
+          className="w-full py-5 bg-white border-4 border-dashed border-black rounded-xl text-xl font-black text-black hover:bg-black hover:text-yellow-400 transition-all duration-300 flex items-center justify-center gap-3 shadow-md active:scale-[0.99]"
         >
-          <Plus size={20} /> Add New Event
+          <Plus size={24} strokeWidth={3} /> ADD NEW EVENT
         </button>
+
+        {/* The new bold, black, italic warning text */}
         <NeonWarning />
+        
       </div>
     </div>
   );
