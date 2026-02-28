@@ -30,16 +30,6 @@ const calculateOutcomePL = (odds: string | number, stake: string | number, isWin
 
 // --- Components ---
 
-const NeonWarning = () => {
-  return (
-    <div className="flex justify-center items-center py-8 md:py-12 w-full select-none overflow-hidden">
-      <h2 className="font-['Anton'] font-normal whitespace-nowrap text-[14vw] md:text-[11vw] leading-none tracking-tight text-center uppercase text-black">
-        DO NOT GAMBLE
-      </h2>
-    </div>
-  );
-};
-
 interface OutcomeRowProps {
   outcome: OutcomeData;
   onUpdate: (updated: OutcomeData) => void;
@@ -309,19 +299,21 @@ export default function App() {
   }, [events]);
 
   return (
-    // Updated background to exact custom hex #E1FF00
-    <div className="min-h-screen bg-[#E1FF00] p-8 font-sans text-gray-900">
-      <div className="max-w-5xl mx-auto">
-        <header className="mb-8 text-center">
-          <h1 className="text-4xl md:text-5xl font-black text-black mb-4 drop-shadow-sm">
-            Outcome Variance Simulator
-          </h1>
-          <p className="text-gray-800 text-md max-w-2xl mx-auto font-medium leading-relaxed">
+    <div className="min-h-screen bg-[#E1FF00] p-4 md:p-8 font-sans text-gray-900 overflow-x-hidden">
+      <div className="max-w-6xl mx-auto">
+        
+        {/* The New Edge-to-Edge Unified Header */}
+        <header className="mb-8 w-full select-none">
+          <div className="flex justify-between items-center w-full font-['Anton'] font-normal whitespace-nowrap text-[4.5vw] md:text-[2.8vw] lg:text-[2.2rem] leading-none tracking-tight text-black uppercase pb-4 border-b-4 border-black mb-4 drop-shadow-sm">
+            <span>Outcome Variance Simulator</span>
+            <span className="mx-2 md:mx-4 opacity-40">-</span>
+            <span>Do Not Gamble</span>
+          </div>
+          <p className="text-gray-900 text-sm md:text-base max-w-3xl mx-auto font-medium leading-relaxed text-center">
             A deterministic tool for analyzing probability, risk distribution, and "what-if" scenarios. Define outcomes, set toggles, and view instant P/L calculations. <span className="font-bold">This is a calculator, not a predictor.</span>
           </p>
         </header>
 
-        {/* Updated text colors inside the black dashboard to match the new background */}
         <div className="bg-black text-[#E1FF00] p-6 rounded-xl shadow-2xl mb-10 flex flex-col md:flex-row justify-between items-center sticky top-4 z-10 border-4 border-black">
           <div className="mb-4 md:mb-0 text-center md:text-left">
             <span className="text-[#E1FF00]/80 text-xs uppercase tracking-widest font-bold">Total Exposure</span>
@@ -342,15 +334,12 @@ export default function App() {
           ))}
         </div>
 
-        {/* Updated hover state to match the custom background */}
         <button
           onClick={addEvent}
           className="w-full py-5 bg-white border-4 border-dashed border-black rounded-xl text-xl font-black text-black hover:bg-black hover:text-[#E1FF00] transition-all duration-300 flex items-center justify-center gap-3 shadow-md active:scale-[0.99]"
         >
           <Plus size={24} strokeWidth={3} /> ADD NEW EVENT
         </button>
-
-        <NeonWarning />
         
       </div>
     </div>
