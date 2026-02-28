@@ -244,6 +244,24 @@ const EventCard = ({ event, onUpdateEvent, onDeleteEvent }: EventCardProps) => {
   );
 };
 
+const NeonWarning = () => {
+  return (
+    <div className="flex justify-center py-16 relative w-full overflow-hidden select-none">
+      <h2 className="relative text-5xl md:text-7xl font-black tracking-[0.3em] text-center uppercase group">
+        {/* The blurry, pulsing glow behind the text */}
+        <span className="absolute inset-0 bg-gradient-to-r from-red-600 via-pink-600 to-red-600 bg-clip-text text-transparent blur-xl animate-pulse opacity-80">
+          Do Not Gamble
+        </span>
+        
+        {/* The sharp, white-hot foreground text */}
+        <span className="relative bg-gradient-to-r from-red-500 via-white to-red-500 bg-clip-text text-transparent drop-shadow-sm">
+          Do Not Gamble
+        </span>
+      </h2>
+    </div>
+  );
+};
+
 export default function App() {
   const [events, setEvents] = useState<EventData[]>([
     {
@@ -334,6 +352,7 @@ export default function App() {
         >
           <Plus size={20} /> Add New Event
         </button>
+        <NeonWarning />
       </div>
     </div>
   );
