@@ -32,8 +32,8 @@ const calculateOutcomePL = (odds: string | number, stake: string | number, isWin
 
 const NeonWarning = () => {
   return (
-    <div className="flex justify-center py-16 w-full select-none">
-      <h2 className="text-5xl md:text-7xl font-black italic tracking-wider text-center uppercase text-black drop-shadow-sm">
+    <div className="flex justify-center py-12 md:py-20 w-full select-none">
+      <h2 className="text-[5.5rem] md:text-[10rem] leading-none tracking-tight text-center uppercase text-black drop-shadow-md font-['Anton']">
         Do Not Gamble
       </h2>
     </div>
